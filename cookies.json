@@ -1,0 +1,20 @@
+[
+  {
+    "name": "cookie_1",
+    "value": "xxxxxxxx_xxxx_xxx.xxxx",
+    "path": "/",
+    "domain": "example.com",
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Strict"
+  },
+  {
+    "name": "cookie_2",
+    "value": "xxxx-x.xxx_xxxx_xxx.xxxx",
+    "path": "/",
+    "domain": "example.com",
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  }
+]
