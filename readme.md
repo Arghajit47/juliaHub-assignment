@@ -5,7 +5,7 @@
 1. Verify successful login with valid credentials.
 2. Verify error message for invalid credentials.
 3. Verify CAPTCHA or MFA is triggered after multiple failed login attempts.
-4. Verify the "Forgot Password" link redirects to the correct page.
+
 
 #### **Dashboard Page**
 
@@ -58,3 +58,6 @@
 
 7. **Access Control:**
    - Are there different user roles (e.g., admin, contributor) with varying permissions? How should these roles be tested?
+
+8. **Forgot Password Link**
+   - Should there be a link to reset the password for the user, named 'Forgot Password', if the attempted passwords are wrong.
