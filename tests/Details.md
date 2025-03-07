@@ -135,7 +135,7 @@ await test.step("Verifying login", async () => {
   - If the URL contains `/dashboard`, the login is successful.
   - If not, the script falls back to using cookies for authentication, basically avoids the CAPTCHA or MFA verification.
 - **`browserContext.addCookies(cookies)`:**  
-  Adds cookies from the `cookies.json` file to the browser context.
+  Adds cookies from the `cookies.json` file to the browser context, manually adding the cokkies one time.
 - **`page.goto(`${url}/dashboard`)`:**  
   Navigates to the dashboard page after adding cookies.
 
@@ -145,19 +145,19 @@ await test.step("Verifying login", async () => {
 
 ```javascript
 await test.step("Create a new repository", async () => {
-  await page.click('button:has-text("Create Repository")');
+  await page.click('//button[text()="Create Repository"]');
   await page.fill('input[name="repositoryName"]', "playwright-test-repo");
-  await page.click('button:has-text("Create")');
+  await page.click('//button[text()="Create"]');
 });
 ```
 
 ### **Explanation:**
 
-- **`page.click('button:has-text("Create Repository")')`:**  
+- **`page.click('//button[text()="Create Repository"]')`:**  
   Clicks the "Create Repository" button.
 - **`page.fill('input[name="repositoryName"]', "playwright-test-repo")`:**  
   Fills the repository name field with `"playwright-test-repo"`.
-- **`page.click('button:has-text("Create")')`:**  
+- **`page.click('//button[text()="Create"]')`:**  
   Clicks the "Create" button to submit the form.
 
 ---
@@ -174,7 +174,7 @@ await test.step("Verify the repository appears on the dashboard", async () => {
 
 ### **Explanation:**
 
-- **`expect(page.locator("text=playwright-test-repo")).toBeVisible()`:**  
+- **`expect(page.locator("//h3[text()='playwright-test-repo']")).toBeVisible()`:**  
   Asserts that the repository name `"playwright-test-repo"` is visible on the dashboard.
 
 ---
@@ -190,7 +190,7 @@ await test.step("Navigate to the repository page", async () => {
 
 ### **Explanation:**
 
-- **`page.click("text=playwright-test-repo")`:**  
+- **`page.click("//h3[text()='playwright-test-repo']")`:**  
   Clicks the repository name to navigate to its page.
 - **`page.waitForURL("<URL>/repo/testuser/playwright-test-repo")`:**  
   Waits for the URL to match the repository page.
@@ -201,19 +201,19 @@ await test.step("Navigate to the repository page", async () => {
 
 ```javascript
 await test.step("Create an issue in the repository", async () => {
-  await page.click('button:has-text("Create Issue")');
+  await page.click('//button[text()="Create Issue"]');
   await page.fill('input[name="issueTitle"]', "Bug in feature X");
-  await page.click('button:has-text("Submit")');
+  await page.click('//button[text()="Submit"]');
 });
 ```
 
 ### **Explanation:**
 
-- **`page.click('button:has-text("Create Issue")')`:**  
+- **`page.click('//button[text()="Create Issue"]')`:**  
   Clicks the "Create Issue" button.
 - **`page.fill('input[name="issueTitle"]', "Bug in feature X")`:**  
   Fills the issue title field with `"Bug in feature X"`.
-- **`page.click('button:has-text("Submit")')`:**  
+- **`page.click('//button[text()="Submit"]')`:**  
   Clicks the "Submit" button to create the issue.
 
 ---
@@ -237,14 +237,14 @@ await test.step("Verify the issue is created", async () => {
 
 ```javascript
 await test.step("Logout", async () => {
-  await page.click('button:has-text("Log Out")');
+  await page.click('//button[text()="Log Out"]');
   await page.waitForURL(`${url}/login`);
 });
 ```
 
 ### **Explanation:**
 
-- **`page.click('button:has-text("Log Out")')`:**  
+- **`page.click('//button[text()="Log Out"]')`:**  
   Clicks the "Log Out" button.
 - **`page.waitForURL(`${url}/login`)`:**  
   Waits for the URL to match the login page.

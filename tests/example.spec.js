@@ -39,9 +39,9 @@ test("authentication in github", { tag: "@new" }, async () => {
     }
   });
   await test.step("Create a new repository", async () => {
-    await page.click('button:has-text("Create Repository")');
+    await page.click('//button[text()="Create Repository"]');
     await page.fill('input[name="repositoryName"]', testRepo);
-    await page.click('button:has-text("Create")');
+    await page.click('//button[text()="Create"]');
   });
   await test.step("Verify the repository appears on the dashboard", async () => {
     await expect(page.locator(`//h3[text()='${testRepo}']`)).toBeVisible();
@@ -51,15 +51,15 @@ test("authentication in github", { tag: "@new" }, async () => {
     await page.waitForURL(`<URL>/repo/${userName}/${testRepo}`);
   });
   await test.step("Create an issue in the repository", async () => {
-    await page.click('button:has-text("Create Issue")');
+    await page.click('//button[text()="Create Issue"]');
     await page.fill('input[name="issueTitle"]', bugName);
-    await page.click('button:has-text("Submit")');
+    await page.click('//button[text()="Submit"]');
   });
   await test.step("Verify the issue is created", async () => {
     await expect(page.locator(`//h3[text()='${bugName}']`)).toBeVisible();
   });
   await test.step("Logout", async () => {
-    await page.click('button:has-text("Log Out")');
+    await page.click('//button[text()="Log Out"]');
     await page.waitForLoadState("networkidle");
   });
 
