@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@arghajit/playwright-pulse-report": "^0.2.4",
     "playwright": "^1.51.0"
   },
   "devDependencies": {
@@ -7,6 +8,10 @@
     "@types/node": "^22.13.9"
   },
   "scripts": {
-    "test": "npx playwright test"
+    "test": "npx playwright test --workers=16",
+    "pulse-generate-report": "generate-report",
+    "pulse-generate-static-report": "generate-pulse-report",
+    "pulse-email-report": "generate-email-report",
+    "pulse-send-report": "send-report"
   }
 }

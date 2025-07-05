@@ -1,69 +1,166 @@
 // @ts-check
-const { test, expect, chromium } = require("@playwright/test");
-const cookies = require("../cookies.json");
-const url = `https://example.com`;
-const userName = "Arghajit47";
-const password = "Hbp@4711";
-const testRepo = "playwright-test-repo";
-const bugName = "Bug in feature X";
+const { test, expect } = require("@playwright/test");
+import * as fs from "fs";
 
-test("authentication in github", { tag: "@new" }, async () => {
-  let page, browserContext;
-  await test.step("Setting up the browser", async () => {
-    const browser = await chromium.launch({ headless: false }); // Launch browser
-    browserContext = await browser.newContext(); // Create a new context
-    page = await browserContext.newPage();
-  });
-  await test.step("Navigating to GitHub login page", async () => {
-    await page.goto(`${url}/login`);
-  });
-  await test.step("Logging in", async () => {
-    await page.fill("#login_field", userName);
-    await page.fill("#password", password);
-    await page.click("input[name='commit']");
-    await page.waitForLoadState("networkidle");
-  });
-  await test.step("Verifying login", async () => {
-    const url = await page.url();
-    if (url.includes("/dashboard")) {
-      console.log("Login successful");
-    } else {
+const os = require("os");
+// const cookies = require("../cookies.json");
+const url = `https://www.apple.com/in/`;
+
+test(
+  "authentication in github",
+  { tag: ["@new", "@toka"] },
+  async ({ page }) => {
+    await test.step("Navigating to GitHub login page", async () => {
+      await page.goto(`${url}`);
+      const screenshotPath = `./image.svg`;
+      test.info().attachments.push({
+        name: "Screenshot",
+        path: screenshotPath,
+        contentType: "image/png",
+      });
+    });
+    await test.step("Filling in the login form", async () => {
+      console.log("Hello test cases!");
+      expect(await page.locator("h1")).toBeVisible();
+      console.log();
+    });
+  }
+);
+
+test(
+  "Github WEB API Access",
+  { tag: ["@new", "@new-tag-mech"] },
+  async ({ request }) => {
+    let response;
+    await test.step("Navigating to GitHub login page", async () => {
+      response = await request.get(`${url}`);
       console.log(
-        "Login with userName and password is failed! Trying with cookies..."
+        `Response status: ${response.status()} - ${response.statusText()}`
       );
-      // Add cookies to the browser context
-      await browserContext.addCookies(cookies);
-      // Navigate to the GitHub profile page
-      await page.goto(`${url}/dashboard`);
-      await page.waitForLoadState("networkidle");
-    }
+      const screenshotPath = `./image.svg`;
+      test.info().attachments.push({
+        name: "Screenshot",
+        path: screenshotPath,
+        contentType: "image/png",
+      });
+    });
+    await test.step("Filling in the login form", async () => {
+      console.log(`Response : ${response.body()}`);
+      // expect(await response.status()).toBe(201);
+    });
+  }
+);
+
+test("internal details", { tag: ["@Os", "@details"] }, async () => {
+  await test.step("Worker Details", async () => {
+    console.log(`Worker ID: ${test.info().workerIndex}`); // Worker number (0, 1, 2...)
+    console.log(`Parallelism: ${test.info().config.workers}`);
+    console.log(`Config File Name: ${test.info().config.configFile}`);
+    const data = test.info().config.metadata;
+    console.log(`Project Meta Data: ${JSON.stringify(data)}`);
   });
-  await test.step("Create a new repository", async () => {
-    await page.click('//button[text()="Create Repository"]');
-    await page.fill('input[name="repositoryName"]', testRepo);
-    await page.click('//button[text()="Create"]');
+  await test.step("Import OS Details", async () => {
+    console.log(`OS Details: ${JSON.stringify(getEnvDetails())}`);
   });
-  await test.step("Verify the repository appears on the dashboard", async () => {
-    await expect(page.locator(`//h3[text()='${testRepo}']`)).toBeVisible();
-  });
-  await test.step("Navigate to the repository page", async () => {
-    await page.click(`//h3[text()='${testRepo}']`);
-    await page.waitForURL(`<URL>/repo/${userName}/${testRepo}`);
-  });
-  await test.step("Create an issue in the repository", async () => {
-    await page.click('//button[text()="Create Issue"]');
-    await page.fill('input[name="issueTitle"]', bugName);
-    await page.click('//button[text()="Submit"]');
-  });
-  await test.step("Verify the issue is created", async () => {
-    await expect(page.locator(`//h3[text()='${bugName}']`)).toBeVisible();
-  });
-  await test.step("Logout", async () => {
-    await page.click('//button[text()="Log Out"]');
-    await page.waitForLoadState("networkidle");
+});
+
+function testData(test) {
+  return {
+    workerId: test.info().workerIndex,
+    totalWorkers: test.info().config.workers,
+    configFile: test.info().config.configFile,
+    metadata: JSON.stringify(test.info().config.metadata),
+  };
+}
+
+function getEnvDetails() {
+  return {
+    host: os.hostname(),
+    os: `${os.platform()} ${os.release()}`,
+    cpu: {
+      model: os.cpus()[0].model,
+      cores: os.cpus().length,
+    },
+    memory: `${(os.totalmem() / 1024 ** 3).toFixed(2)}GB`, // Total RAM in GB
+    node: process.version,
+    v8: process.versions.v8,
+    cwd: process.cwd(),
+  };
+}
+
+test("should handle multiple attachments at different times", async ({
+  page,
+}) => {
+  // 1. Attach a JSON file at the beginning
+  const initialData = { user: "testuser", step: "initial" };
+  fs.writeFileSync("initial-data.json", JSON.stringify(initialData));
+  await test.info().attach("initial-data.json", {
+    path: "initial-data.json",
+    contentType: "application/json",
   });
 
-  await test.step("Verify user is redirected to the login page", async () => {
-    await expect(page).toHaveURL(`${url}/login`);
+  await page.goto("https://playwright.dev/");
+
+  // 2. Attach a video after the first navigation
+  await test.info().attach("navigation-video webm", {
+    path: "navigation.webm",
+    contentType: "video/webm",
   });
+  await test.info().attach("navigation-video avi", {
+    path: "navigation.avi",
+    contentType: "video/avi",
+  });
+  await test.info().attach("navigation-video mov", {
+    path: "navigation.mov",
+    contentType: "video/mov",
+  });
+  await test.info().attach("navigation-video mp4", {
+    path: "navigation.mp4",
+    contentType: "video/mp4",
+  });
+  await test.info().attach("navigation-video ogg", {
+    path: "navigation.ogg",
+    contentType: "video/ogg",
+  });
+  await test.info().attach("navigation-video wmv", {
+    path: "navigation.wmv",
+    contentType: "video/wmv",
+  });
+
+  await page.getByLabel("Search").click();
+  await page.getByPlaceholder("Search docs").fill("reporter");
+
+  // 3. Attach a text log file after an action
+  fs.writeFileSync("search-log.txt", 'User searched for "reporter".');
+  await test.info().attach("search-log.txt", {
+    path: "search-log.txt",
+    contentType: "text/plain",
+  });
+
+  // 4. Attach a PDF document
+  // (Assuming 'test-plan.pdf' is a file in your project)
+  await test.info().attach("test-plan.pdf", {
+    path: "test-plan.pdf",
+    contentType: "application/pdf",
+  });
+
+  await expect(page.locator(".DocSearch-Hit-title").first()).toBeVisible();
+  fs.writeFileSync("final-log.txt", "Test completed successfully.");
+  await test.info().attach("final-log.txt", {
+    path: "final-log.txt",
+    contentType: "text/plain",
+  });
+  fs.writeFileSync(
+    "test-results.csv",
+    `Test ID,Status,Duration(ms)
+    TC001,Passed,125
+    TC002,Failed,230
+    TC003,Passed,98
+    TC004,Passed,156`
+  );
+  await test.info().attach("test-results.csv", {
+    path: "test-results.csv",
+    contentType: "text/csv",
+  });
+  test.fail();
 });

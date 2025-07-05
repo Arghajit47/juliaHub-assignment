@@ -1,0 +1,43 @@
+Test Plan Document
+==================
+
+Project: Performance Dashboard for Playwright Pulse  
+Author: QA Team  
+Date: 2025-06-01
+
+Objective:
+----------
+To verify and validate the performance dashboard components for correctness, responsiveness, and usability.
+
+Test Scope:
+-----------
+- Dashboard UI Rendering
+- Lighthouse Report Integration
+- Chart Interactivity (Pie, Line, History)
+- Filtering by Status and Device
+- Tooltip Functionality (Tippy.js)
+
+Test Strategy:
+--------------
+- Manual Testing for UI/UX Verification
+- Automated Playwright Tests for Regressions
+- API Mocking for Backend Independence
+
+Test Cases:
+-----------
+1. Validate pie chart rendering on load
+2. Verify tooltip appears on hover and click
+3. Test device filter changes data dynamically
+4. Ensure all charts show 'No Data' when input is empty
+5. Verify copy-to-clipboard on Share button
+
+Deliverables:
+-------------
+- `final-log.txt`
+- `search-log.txt`
+- `initial-data.json`
+- Screenshots of dashboard states
+
+Approval:
+---------
+Signoff by QA Lead: ____________   Date: ___________
