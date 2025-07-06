@@ -12,7 +12,7 @@ test(
   async ({ page }) => {
     await test.step("Navigating to GitHub login page", async () => {
       await page.goto(`${url}`);
-      const screenshotPath = `./image.svg`;
+      const screenshotPath = `./assets/image.svg`;
       test.info().attachments.push({
         name: "Screenshot",
         path: screenshotPath,
@@ -93,41 +93,41 @@ test("should handle multiple attachments at different times", async ({
 }) => {
   // 1. Attach a JSON file at the beginning
   const initialData = { user: "testuser", step: "initial" };
-  fs.writeFileSync("initial-data.json", JSON.stringify(initialData));
+  fs.writeFileSync("assets/initial-data.json", JSON.stringify(initialData));
   await test.info().attach("initial-data.json", {
-    path: "initial-data.json",
+    path: "assets/initial-data.json",
     contentType: "application/json",
   });
 
   await page.goto("https://playwright.dev/");
   await test.info().attach("initial-logo.png", {
-    path: "pulse.png",
+    path: "assets/pulse.png",
     contentType: "image/png",
   });
 
   // 2. Attach a video after the first navigation
   await test.info().attach("navigation-video webm", {
-    path: "navigation.webm",
+    path: "assets/navigation.webm",
     contentType: "video/webm",
   });
   await test.info().attach("navigation-video avi", {
-    path: "navigation.avi",
+    path: "assets/navigation.avi",
     contentType: "video/avi",
   });
   await test.info().attach("navigation-video mov", {
-    path: "navigation.mov",
+    path: "assets/navigation.mov",
     contentType: "video/mov",
   });
   await test.info().attach("navigation-video mp4", {
-    path: "navigation.mp4",
+    path: "assets/navigation.mp4",
     contentType: "video/mp4",
   });
   await test.info().attach("navigation-video ogg", {
-    path: "navigation.ogg",
+    path: "assets/navigation.ogg",
     contentType: "video/ogg",
   });
   await test.info().attach("navigation-video wmv", {
-    path: "navigation.wmv",
+    path: "assets/navigation.wmv",
     contentType: "video/wmv",
   });
 
@@ -135,27 +135,27 @@ test("should handle multiple attachments at different times", async ({
   await page.getByPlaceholder("Search docs").fill("reporter");
 
   // 3. Attach a text log file after an action
-  fs.writeFileSync("search-log.txt", 'User searched for "reporter".');
+  fs.writeFileSync("assets/search-log.txt", 'User searched for "reporter".');
   await test.info().attach("search-log.txt", {
-    path: "search-log.txt",
+    path: "assets/search-log.txt",
     contentType: "text/plain",
   });
 
   // 4. Attach a PDF document
   // (Assuming 'test-plan.pdf' is a file in your project)
   await test.info().attach("test-plan.pdf", {
-    path: "test-plan.pdf",
+    path: "assets/test-plan.pdf",
     contentType: "application/pdf",
   });
 
   await expect(page.locator(".DocSearch-Hit-title").first()).toBeVisible();
-  fs.writeFileSync("final-log.txt", "Test completed successfully.");
+  fs.writeFileSync("assets/final-log.txt", "Test completed successfully.");
   await test.info().attach("final-log.txt", {
-    path: "final-log.txt",
+    path: "assets/final-log.txt",
     contentType: "text/plain",
   });
   fs.writeFileSync(
-    "test-results.csv",
+    "assets/test-results.csv",
     `Test ID,Status,Duration(ms)
     TC001,Passed,125
     TC002,Failed,230
@@ -163,15 +163,15 @@ test("should handle multiple attachments at different times", async ({
     TC004,Passed,156`
   );
   await test.info().attach("test-results.csv", {
-    path: "test-results.csv",
+    path: "assets/test-results.csv",
     contentType: "text/csv",
   });
   await test.info().attach("report.html", {
-    path: "index.html",
+    path: "assets/index.html",
     contentType: "text/html",
   });
   await test.info().attach("result.xml", {
-    path: "result.xml",
+    path: "assets/result.xml",
     contentType: "xml",
   });
 });
