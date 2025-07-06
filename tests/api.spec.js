@@ -9,6 +9,7 @@ test.describe.serial("API Tests with Real Working Endpoints", () => {
     );
     expect(response.status()).toBe(200);
     const posts = await response.json();
+    console.log(posts);
     expect(posts.length).toBeGreaterThan(0);
     expect(posts[0]).toHaveProperty("userId");
     expect(posts[0]).toHaveProperty("title");
@@ -28,6 +29,7 @@ test.describe.serial("API Tests with Real Working Endpoints", () => {
     );
     expect(response.status()).toBe(201);
     const createdPost = await response.json();
+    console.log(createdPost);
     expect(createdPost.id).toBeDefined();
     expect(createdPost.title).toBe("Playwright Test");
   });
@@ -47,6 +49,7 @@ test.describe.serial("API Tests with Real Working Endpoints", () => {
     );
     expect(response.status()).toBe(200);
     const updatedPost = await response.json();
+    console.log(updatedPost);
     expect(updatedPost.title).toBe("Updated Title");
   });
 
@@ -69,6 +72,7 @@ test.describe.serial("API Tests with Real Working Endpoints", () => {
         password: "cityslicka",
       },
     });
+    console.log(await response.json());
     expect(response.status()).toBe(200);
     expect(await response.json()).toHaveProperty("token");
   });
