@@ -100,6 +100,10 @@ test("should handle multiple attachments at different times", async ({
   });
 
   await page.goto("https://playwright.dev/");
+  await test.info().attach("initial-logo.png", {
+    path: "pulse.png",
+    contentType: "image/png",
+  });
 
   // 2. Attach a video after the first navigation
   await test.info().attach("navigation-video webm", {
@@ -162,5 +166,12 @@ test("should handle multiple attachments at different times", async ({
     path: "test-results.csv",
     contentType: "text/csv",
   });
-  test.fail();
+  await test.info().attach("report.html", {
+    path: "index.html",
+    contentType: "text/html",
+  });
+  await test.info().attach("result.xml", {
+    path: "result.xml",
+    contentType: "xml",
+  });
 });

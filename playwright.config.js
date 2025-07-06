@@ -39,7 +39,7 @@ module.exports = defineConfig({
         // The static HTML report will also be generated here.
         // It's recommended to use an absolute path or one relative to the config file.
         outputDir: PULSE_REPORT_DIR,
-        // resetOnEachRun: false,
+        resetOnEachRun: true,
       },
     ],
     // [
