@@ -30,7 +30,7 @@ module.exports = defineConfig({
     ["json", { outputFile: "test-results.json" }],
     // Add the Playwright Pulse Reporter
     [
-      "@arghajit/playwright-pulse-report",
+      "@arghajit/dummy",
       {
         // Optional: Specify the output file name (defaults to 'playwright-pulse-report.json')
         // outputFile: 'my-custom-report-name.json',
