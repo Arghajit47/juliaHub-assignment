@@ -106,8 +106,8 @@ test.describe.serial("API Tests with Real Working Endpoints", () => {
   test("GET /api/users/2 - Validate nested data", async ({ request }) => {
     const response = await request.get("https://reqres.in/api/users/2");
     const user = await response.json();
-    expect(user.data.email).toContain("@reqres.in");
-    expect(user.data.avatar).toMatch(/^https:\/\//);
+    await expect(user.data.email).toContain("@reqres.in");
+    await expect(user.data.avatar).toMatch(/^https:\/\//);
   });
 
   // 9. File Upload Simulation (JSONPlaceholder doesn't support uploads - mock test)

@@ -37,7 +37,7 @@ test(
       console.log(
         `Response status: ${response.status()} - ${response.statusText()}`
       );
-      const screenshotPath = `./image.svg`;
+      const screenshotPath = `./assets/image.svg`;
       test.info().attachments.push({
         name: "Screenshot",
         path: screenshotPath,
