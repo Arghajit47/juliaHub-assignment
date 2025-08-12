@@ -1,20 +1,19 @@
 // @ts-check
-const { defineConfig, devices } = require('@playwright/test');
+import { defineConfig, devices } from "@playwright/test";
 import * as path from "path";
-
-// Define where the final report JSON and HTML should go
-const PULSE_REPORT_DIR = path.resolve(__dirname, "pulse-report"); // Example: a directory in your project root
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+// import dotenv from 'dotenv';
+// import path from 'path';
+// dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
-module.exports = defineConfig({
+export default defineConfig({
   testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -26,29 +25,14 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ["html", { open: "never" }],
-    ["json", { outputFile: "test-results.json" }],
-    // Add the Playwright Pulse Reporter
+    ["list"],
+    ["html"], // Keep the default 'list' reporter or use any other you prefer
     [
       "@arghajit/dummy",
       {
-        // Optional: Specify the output file name (defaults to 'playwright-pulse-report.json')
-        // outputFile: 'my-custom-report-name.json',
-
-        // REQUIRED: Specify the directory for the final JSON report
-        // The static HTML report will also be generated here.
-        // It's recommended to use an absolute path or one relative to the config file.
-        outputDir: PULSE_REPORT_DIR,
-        resetOnEachRun: true,
+        outputDir: path.resolve(__dirname, "pulse-report"),
       },
     ],
-    // [
-    //   "monocart-reporter",
-    //   {
-    //     name: "My Test Report",
-    //     outputFile: "./monocart-report/index.html",
-    //   },
-    // ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -57,7 +41,8 @@ module.exports = defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     screenshot: "only-on-failure",
-    headless: true,
+    video: "retain-on-failure",
+    trace: "retain-on-failure",
   },
 
   /* Configure projects for major browsers */
