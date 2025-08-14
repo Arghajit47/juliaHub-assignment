@@ -1,15 +1,15 @@
 {
   "dependencies": {
-    "@arghajit/dummy": "0.1.0-beta-29",
+    "@arghajit/playwright-pulse-report": "0.2.6",
     "playwright": "^1.51.0",
-    "pulse-dashboard": "^1.1.2"
+    "pulse-dashboard": "^1.1.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.51.0",
     "@types/node": "^22.13.9"
   },
   "scripts": {
-    "test": "npx playwright test",
+    "test": "npx playwright test new",
     "pulse-generate-report": "generate-report",
     "pulse-generate-static-report": "generate-pulse-report",
     "pulse-email-report": "generate-email-report",

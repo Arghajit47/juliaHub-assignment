@@ -28,7 +28,7 @@ export default defineConfig({
     ["list"],
     ["html"], // Keep the default 'list' reporter or use any other you prefer
     [
-      "@arghajit/dummy",
+      "@arghajit/playwright-pulse-report",
       {
         outputDir: path.resolve(__dirname, "pulse-report"),
       },
