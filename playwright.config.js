@@ -53,40 +53,40 @@ export default defineConfig({
       workers: 1,
     },
 
-    {
-      name: "Edge Project",
-      use: { ...devices["Desktop Edge"] },
-      workers: 1,
-    },
-    {
-      name: "Firefox Project",
-      use: { ...devices["Desktop Firefox"] },
-      workers: 1,
-    },
+    // {
+    //   name: "Edge Project",
+    //   use: { ...devices["Desktop Edge"] },
+    //   workers: 1,
+    // },
+    // {
+    //   name: "Firefox Project",
+    //   use: { ...devices["Desktop Firefox"] },
+    //   workers: 1,
+    // },
 
-    {
-      name: "Webkit Project",
-      use: { ...devices["Desktop Safari"] },
-      workers: 1,
-    },
+    // {
+    //   name: "Webkit Project",
+    //   use: { ...devices["Desktop Safari"] },
+    //   workers: 1,
+    // },
 
-    {
-      name: "Mobile Webkit Project",
-      use: { ...devices["iPhone 14"] },
-      workers: 1,
-    },
+    // {
+    //   name: "Mobile Webkit Project",
+    //   use: { ...devices["iPhone 14"] },
+    //   workers: 1,
+    // },
 
-    {
-      name: "Mobile Chrome Project",
-      use: { ...devices["Pixel 5"] },
-      workers: 1,
-    },
+    // {
+    //   name: "Mobile Chrome Project",
+    //   use: { ...devices["Pixel 5"] },
+    //   workers: 1,
+    // },
 
-    {
-      name: "Chromium Project",
-      use: { browserName: "chromium" },
-      workers: 1,
-    },
+    // {
+    //   name: "Chromium Project",
+    //   use: { browserName: "chromium" },
+    //   workers: 1,
+    // },
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',

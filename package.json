@@ -9,7 +9,7 @@
     "@types/node": "^22.13.9"
   },
   "scripts": {
-    "test": "npx playwright test new",
+    "test": "npx playwright test comet",
     "pulse-generate-report": "generate-report",
     "pulse-generate-static-report": "generate-pulse-report",
     "pulse-email-report": "generate-email-report",
