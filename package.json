@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "@arghajit/playwright-pulse-report": "0.2.6",
+    "@arghajit/playwright-pulse-report": "0.3.0",
     "playwright": "^1.51.0",
-    "pulse-dashboard": "^1.1.3"
+    "pulse-dashboard": "^1.2.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.51.0",
@@ -13,7 +13,7 @@
     "pulse-generate-report": "generate-report",
     "pulse-generate-static-report": "generate-pulse-report",
     "pulse-email-report": "generate-email-report",
-    "pulse-send-report": "send-report",
+    "pulse-send-report": "send-email",
     "run-dashboard": "pulse-dashboard"
   }
 }

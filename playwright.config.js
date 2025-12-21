@@ -26,12 +26,13 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ["list"],
-    ["html"], // Keep the default 'list' reporter or use any other you prefer
+    ["html", { open: "never" }], // Keep the default 'list' reporter or use any other you prefer
+    ["json", { outputFile: "results.json" }],
     [
-      "@arghajit/playwright-pulse-report",
-      {
-        outputDir: path.resolve(__dirname, "pulse-report"),
-      },
+      "@arghajit/dummy",
+      // {
+      //   outputDir: path.resolve(__dirname, "reporter"),
+      // },
     ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
