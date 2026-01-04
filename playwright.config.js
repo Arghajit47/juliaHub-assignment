@@ -53,23 +53,22 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
       workers: 1,
     },
+    {
+      name: "Edge Project",
+      use: { ...devices["Desktop Edge"] },
+      workers: 1,
+    },
+    {
+      name: "Firefox Project",
+      use: { ...devices["Desktop Firefox"] },
+      workers: 1,
+    },
 
-    // {
-    //   name: "Edge Project",
-    //   use: { ...devices["Desktop Edge"] },
-    //   workers: 1,
-    // },
-    // {
-    //   name: "Firefox Project",
-    //   use: { ...devices["Desktop Firefox"] },
-    //   workers: 1,
-    // },
-
-    // {
-    //   name: "Webkit Project",
-    //   use: { ...devices["Desktop Safari"] },
-    //   workers: 1,
-    // },
+    {
+      name: "Webkit Project",
+      use: { ...devices["Desktop Safari"] },
+      workers: 1,
+    },
 
     // {
     //   name: "Mobile Webkit Project",

@@ -1,9 +1,11 @@
 // api-tests.spec.ts
 import { test, expect } from "@playwright/test";
+import { pulse } from "@arghajit/dummy";
 
-test.describe.serial("API Tests with Real Working Endpoints", () => {
+test.describe.serial.only("API Tests with Real Working Endpoints", async () => {
   // 1. GET - Validate status & response structure
   test("GET /posts - Fetch posts", async ({ request }) => {
+    pulse.severity("High");
     const response = await request.get(
       "https://jsonplaceholder.typicode.com/posts"
     );
@@ -17,6 +19,7 @@ test.describe.serial("API Tests with Real Working Endpoints", () => {
 
   // 2. POST - Create a new resource
   test("POST /posts - Create new post", async ({ request }) => {
+    pulse.severity("Low");
     const response = await request.post(
       "https://jsonplaceholder.typicode.com/posts",
       {
@@ -36,6 +39,7 @@ test.describe.serial("API Tests with Real Working Endpoints", () => {
 
   // 3. PUT - Update existing resource
   test("PUT /posts/1 - Update post", async ({ request }) => {
+    pulse.severity("High");
     const response = await request.put(
       "https://jsonplaceholder.typicode.com/posts/1",
       {
@@ -55,6 +59,7 @@ test.describe.serial("API Tests with Real Working Endpoints", () => {
 
   // 4. DELETE - Remove a resource
   test("DELETE /posts/1 - Delete post", async ({ request }) => {
+    pulse.severity("Critical");
     const response = await request.delete(
       "https://jsonplaceholder.typicode.com/posts/1"
     );
