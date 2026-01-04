@@ -12,7 +12,7 @@ test.describe.only("Sanity Tests", async () => {
 test.describe.only("Home page related Tests", async () => {
   test(
     "English language switch works",
-    { tag: ["@new", "@new-tag-mech"] },
+    { tag: ["@new", "@new-tag", "@language"] },
     async ({ page }) => {
       pulse.severity("Low");
       await page.goto("https://www.wikipedia.org");
@@ -32,7 +32,7 @@ test.describe.only("Home page related Tests", async () => {
         },
       ],
     },
-    { tag: ["@new", "@toka"] },
+    { tag: ["@new", "@wikipedia"] },
     async ({ page }) => {
       pulse.severity("Medium");
       await page.goto("https://en.wikipedia.org/wiki/Main_Page");
