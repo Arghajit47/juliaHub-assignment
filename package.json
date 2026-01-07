@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "@arghajit/dummy": "0.3.12",
+    "@arghajit/playwright-pulse-report": "0.3.1",
     "playwright": "^1.51.0",
-    "pulse-dashboard": "^1.2.4"
+    "pulse-dashboard": "^1.2.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.51.0",

@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 import * as fs from "fs";
-import { pulse } from "@arghajit/dummy";
+import { pulse } from "@arghajit/playwright-pulse-report";
 
 const os = require("os");
 // const cookies = require("../cookies.json");

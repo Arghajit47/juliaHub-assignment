@@ -29,7 +29,7 @@ export default defineConfig({
     ["html", { open: "never" }], // Keep the default 'list' reporter or use any other you prefer
     ["json", { outputFile: "results.json" }],
     [
-      "@arghajit/dummy",
+      "@arghajit/playwright-pulse-report",
       // {
       //   outputDir: path.resolve(__dirname, "reporter"),
       // },

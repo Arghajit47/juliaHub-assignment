@@ -1,6 +1,6 @@
 // tests/wikipedia.spec.js
 import { test, expect } from "@playwright/test";
-import { pulse } from "@arghajit/dummy";
+import { pulse } from "@arghajit/playwright-pulse-report";
 test.describe.only("Sanity Tests", async () => {
   test("Wikipedia homepage loads", async ({ page }) => {
     pulse.severity("High");

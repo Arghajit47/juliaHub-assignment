@@ -1,6 +1,6 @@
 // api-tests.spec.ts
 import { test, expect } from "@playwright/test";
-import { pulse } from "@arghajit/dummy";
+import { pulse } from "@arghajit/playwright-pulse-report";
 
 test.describe.serial.only("API Tests with Real Working Endpoints", async () => {
   // 1. GET - Validate status & response structure
