@@ -1,15 +1,21 @@
 // tests/wikipedia.spec.js
 import { test, expect } from "@playwright/test";
 import { pulse } from "@arghajit/playwright-pulse-report";
-test.describe.only("Sanity Tests", async () => {
-  test("Wikipedia homepage loads", async ({ page }) => {
+import { UAParser } from "ua-parser-js";
+test.describe("Sanity Tests", async () => {
+  test.only("Wikipedia homepage loads", async ({ page }) => {
     pulse.severity("High");
     await page.goto("https://www.wikipedia.org");
     await expect(page).toHaveTitle("Wikipedia");
     await expect(page.getByText("The Free Encyclopedia")).toBeVisible();
+    const parser = new UAParser(
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
+    );
+    const result = parser.getResult();
+    console.log(result);
   });
 });
-test.describe.only("Home page related Tests", async () => {
+test.describe("Home page related Tests", async () => {
   test(
     "English language switch works",
     { tag: ["@new", "@new-tag", "@language"] },
