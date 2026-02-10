@@ -6,3 +6,5 @@ node_modules/
 pulse-report/
 .env
 monocart-report/
+tests/comet-chat.spec.js
+assets/comet-chat-users.json
