@@ -1,9 +1,9 @@
 // api-tests.spec.ts
 import { test, expect } from "@playwright/test";
-import { pulse } from "@arghajit/playwright-pulse-report";
+import { pulse } from "@arghajit/dummy";
 test.describe.configure({ mode: "serial" });
 
-test.describe("API Tests with Real Working Endpoints", async () => {
+test.describe.only("API Tests with Real Working Endpoints", async () => {
   // 1. GET - Validate status & response structure
   test("GET /posts - Fetch posts", async ({ request }) => {
     pulse.severity("High");

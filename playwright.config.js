@@ -20,7 +20,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 3 : 3,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -29,7 +29,7 @@ export default defineConfig({
     ["html", { open: "never" }], // Keep the default 'list' reporter or use any other you prefer
     ["json", { outputFile: "results.json" }],
     [
-      "@arghajit/playwright-pulse-report",
+      "@arghajit/dummy",
       // {
       //   outputDir: path.resolve(__dirname, "reporter"),
       // },
@@ -69,43 +69,31 @@ export default defineConfig({
       use: { ...devices["Desktop Safari"] },
       workers: 1,
     },
+    {
+      name: "Mobile Webkit Project",
+      use: { ...devices["iPhone 14"] },
+      workers: 1,
+    },
 
-    // {
-    //   name: "Mobile Webkit Project",
-    //   use: { ...devices["iPhone 14"] },
-    //   workers: 1,
-    // },
-
-    // {
-    //   name: "Mobile Chrome Project",
-    //   use: { ...devices["Pixel 5"] },
-    //   workers: 1,
-    // },
-
-    // {
-    //   name: "Chromium Project",
-    //   use: { browserName: "chromium" },
-    //   workers: 1,
-    // },
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
+    {
+      name: "Mobile Chrome Project",
+      use: { ...devices["Pixel 5"] },
+      workers: 1,
+    },
+    {
+      name: "Chromium Project",
+      use: { browserName: "chromium" },
+      workers: 1,
+    },
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: "Microsoft Edge",
+      use: { ...devices["Desktop Edge"], channel: "msedge" },
+    },
+    {
+      name: "Google Chrome",
+      use: { ...devices["Desktop Chrome"], channel: "chrome" },
+    },
   ],
 
   /* Run your local dev server before starting the tests */
@@ -115,4 +103,3 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-

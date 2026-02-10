@@ -1,6 +1,6 @@
 // tests/wikipedia.spec.js
 import { test, expect } from "@playwright/test";
-import { pulse } from "@arghajit/playwright-pulse-report";
+import { pulse } from "@arghajit/dummy";
 import { UAParser } from "ua-parser-js";
 test.describe("Sanity Tests", async () => {
   test.only("Wikipedia homepage loads", async ({ page }) => {
@@ -9,7 +9,7 @@ test.describe("Sanity Tests", async () => {
     await expect(page).toHaveTitle("Wikipedia");
     await expect(page.getByText("The Free Encyclopedia")).toBeVisible();
     const parser = new UAParser(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
     );
     const result = parser.getResult();
     console.log(result);

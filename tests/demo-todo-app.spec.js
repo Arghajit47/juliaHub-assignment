@@ -11,7 +11,9 @@ const TODO_ITEMS = [
 ];
 
 test.describe("New Todo", () => {
-  test("should allow me to add todo items", async ({ page }) => {
+  test.only("should allow me to add todo items, and skip late on", async ({
+    page,
+  }) => {
     // create a new todo locator
     const newTodo = page.getByPlaceholder("What needs to be done?");
 
@@ -37,6 +39,9 @@ test.describe("New Todo", () => {
 
     await checkNumberOfTodosInLocalStorage(page, 2);
     console.log("Checked number of todos in local storage.");
+    if (test.info().project.name.includes("Chrome")) {
+      test.skip();
+    }
   });
 
   test("should clear text input field when an item is added", async ({

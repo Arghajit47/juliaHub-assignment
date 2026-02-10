@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 import * as fs from "fs";
-import { pulse } from "@arghajit/playwright-pulse-report";
+import { pulse } from "@arghajit/dummy";
 
 const os = require("os");
 // const cookies = require("../cookies.json");
@@ -24,7 +24,7 @@ test(
       expect(await page.locator("h1")).toBeVisible();
       console.log();
     });
-  }
+  },
 );
 
 test(
@@ -87,8 +87,7 @@ function getEnvDetails() {
     cwd: process.cwd(),
   };
 }
-test.describe
-  .only("Demonstrate the Pulse Static Report's feature", async () => {
+test.describe("Demonstrate the Pulse Static Report's feature", async () => {
   test(
     "should handle multiple attachments at different times",
     {
@@ -148,7 +147,7 @@ test.describe
       // 3. Attach a text log file after an action
       fs.writeFileSync(
         "assets/search-log.txt",
-        'User searched for "reporter".'
+        'User searched for "reporter".',
       );
       await test.info().attach("search-log.txt", {
         path: "assets/search-log.txt",
@@ -174,7 +173,7 @@ test.describe
       TC001,Passed,125
       TC002,Failed,230
       TC003,Passed,98
-      TC004,Passed,156`
+      TC004,Passed,156`,
       );
       await test.info().attach("test-results.csv", {
         path: "assets/test-results.csv",
@@ -189,6 +188,42 @@ test.describe
         contentType: "xml",
       });
       console.log(await testData(test));
-    }
+    },
   );
+  test.only("fails 3 times with different reasons before passing", async ({
+    page,
+  }, testInfo) => {
+    // testInfo.retry starts at 0 for the first run
+    const attempt = testInfo.retry;
+
+    console.log(`\n--- Execution Attempt: ${attempt + 1} ---\n`);
+
+    if (attempt === 0) {
+      await page.goto("https://www.apple.com/in/");
+      await page.goto("https://arghajit47.github.io/playwright-pulse/");
+      // Failure Reason 1: Standard Assertion Error
+      console.log("Simulating Failure 1: Assertion Mismatch");
+      expect(await page.title(), "Run 1 Failure: Title mismatch").toBe(
+        "Incorrect Title",
+      );
+    } else if (attempt === 1) {
+      await page.goto("https://arghajit47.github.io/playwright-pulse/");
+      await page.goto("https://google.com/");
+      // Failure Reason 2: Element Timeout (simulating slow UI)
+      console.log("Simulating Failure 2: Element Timeout");
+      // Force a strict timeout for this step to fail quickly
+      await page.waitForSelector("#non-existent-element", { timeout: 2000 });
+    } else if (attempt === 2) {
+      await page.goto("https://google.com/");
+      await page.goto("https://www.apple.com/in/");
+      // Failure Reason 3: Unhandled Exception (simulating code crash)
+      console.log("Simulating Failure 3: System Error");
+      throw new Error("Run 3 Failure: Critical API connection refused");
+    } else if (attempt === 3) {
+      // Attempt 3 (The 4th run) will pass
+      console.log("Attempt 4: Success!");
+      expect(true).toBe(true);
+    }
+  });
 });
+
