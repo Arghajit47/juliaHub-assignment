@@ -1,7 +1,7 @@
 // @ts-check
 const { test, expect } = require("@playwright/test");
 import { pulse } from "@arghajit/dummy";
-test.describe.only("Playwright's default Tests", async () => {
+test.describe("Playwright's default Tests", async () => {
   test("has title", async ({ page }) => {
     pulse.severity("High");
     await page.goto("https://playwright.dev/");
@@ -19,11 +19,11 @@ test.describe.only("Playwright's default Tests", async () => {
 
     // Expects page to have a heading with the name of Installation.
     await expect(
-      page.getByRole("heading", { name: "Installation" })
+      page.getByRole("heading", { name: "Installation" }),
     ).toBeVisible();
   });
 
-  test(
+  test.only(
     "flaky: should display and close modal",
     { tag: "@expected-fail" },
     async ({ page }) => {
@@ -37,7 +37,7 @@ test.describe.only("Playwright's default Tests", async () => {
 
       // Flaky part: modal may animate in but not be fully visible yet
       await expect(
-        page.locator('[data-testid="settings-modal"]')
+        page.locator('[data-testid="settings-modal"]'),
       ).toBeVisible();
 
       // Close the modal
@@ -45,6 +45,6 @@ test.describe.only("Playwright's default Tests", async () => {
 
       // Expect it to be gone — may fail if animation still fading out
       await expect(page.locator('[data-testid="settings-modal"]')).toBeHidden();
-    }
+    },
   );
 });

@@ -3,12 +3,12 @@ import { test, expect } from "@playwright/test";
 import { pulse } from "@arghajit/dummy";
 test.describe.configure({ mode: "serial" });
 
-test.describe.only("API Tests with Real Working Endpoints", async () => {
+test.describe("API Tests with Real Working Endpoints", async () => {
   // 1. GET - Validate status & response structure
   test("GET /posts - Fetch posts", async ({ request }) => {
     pulse.severity("High");
     const response = await request.get(
-      "https://jsonplaceholder.typicode.com/posts"
+      "https://jsonplaceholder.typicode.com/posts",
     );
     expect(response.status()).toBe(200);
     const posts = await response.json();
@@ -29,7 +29,7 @@ test.describe.only("API Tests with Real Working Endpoints", async () => {
           body: "This is an API test",
           userId: 1,
         },
-      }
+      },
     );
     expect(response.status()).toBe(201);
     const createdPost = await response.json();
@@ -50,7 +50,7 @@ test.describe.only("API Tests with Real Working Endpoints", async () => {
           body: "Updated content",
           userId: 1,
         },
-      }
+      },
     );
     expect(response.status()).toBe(200);
     const updatedPost = await response.json();
@@ -62,7 +62,7 @@ test.describe.only("API Tests with Real Working Endpoints", async () => {
   test("DELETE /posts/1 - Delete post", async ({ request }) => {
     pulse.severity("Critical");
     const response = await request.delete(
-      "https://jsonplaceholder.typicode.com/posts/1"
+      "https://jsonplaceholder.typicode.com/posts/1",
     );
     expect(response.status()).toBe(200);
   });
@@ -101,7 +101,7 @@ test.describe.only("API Tests with Real Working Endpoints", async () => {
   test("GET /posts - Response time < 1000ms", async ({ request }) => {
     const start = Date.now();
     const response = await request.get(
-      "https://jsonplaceholder.typicode.com/posts"
+      "https://jsonplaceholder.typicode.com/posts",
     );
     const duration = Date.now() - start;
     expect(response.status()).toBe(200);
@@ -129,7 +129,7 @@ test.describe.only("API Tests with Real Working Endpoints", async () => {
             buffer: Buffer.from("Playwright test file content"),
           },
         },
-      }
+      },
     );
     expect(response.status()).toBe(404); // Expected since endpoint doesn't exist
   });

@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arghajit/dummy": "^0.3.29",
+    "@arghajit/dummy": "^0.3.33",
     "playwright": "^1.51.0",
     "pulse-dashboard": "^1.2.6"
   },
