@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { pulse } from "@arghajit/playwright-pulse-report";
+import { pulse } from "@arghajit/dummy";
 import UAParser from "ua-parser-js";
 
 export function runNewTestTests() {

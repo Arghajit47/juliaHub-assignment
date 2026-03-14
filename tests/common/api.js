@@ -1,6 +1,6 @@
 // api-tests.spec.ts
 import { test, expect } from "@playwright/test";
-import { pulse } from "@arghajit/playwright-pulse-report";
+import { pulse } from "@arghajit/dummy";
 test.describe.configure({ mode: "serial" });
 
 export function runApiTests() {

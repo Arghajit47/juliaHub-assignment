@@ -1,6 +1,6 @@
 // @ts-check
 const { test, expect } = require("@playwright/test");
-import { pulse } from "@arghajit/playwright-pulse-report";
+import { pulse } from "@arghajit/dummy";
 export function runTestTests() {
   test.describe("Playwright's default Tests", async () => {
     test("has title", async ({ page }) => {

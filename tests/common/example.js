@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 import * as fs from "fs";
-import { pulse } from "@arghajit/playwright-pulse-report";
+import { pulse } from "@arghajit/dummy";
 
 const os = require("os");
 // const cookies = require("../cookies.json");
@@ -203,5 +203,26 @@ export function runExampleTests() {
         console.log(await testData(test));
       },
     );
+
+    test("fails 3 times with different reasons before passing", async ({
+      page,
+    }, testInfo) => {
+      pulse.severity("Critical");
+      const attempt = testInfo.retry;
+      if (attempt === 0) {
+        expect(1).toBe(2);
+      }
+      if (attempt === 1) {
+        await page.goto("https://playwright.dev/");
+        await expect(page).toHaveTitle(/Arghajit/);
+      }
+      if (attempt === 2) {
+        await page.goto("https://google.com");
+        await expect(page).toHaveTitle(/Playwright/);
+      }
+      if (attempt === 3) {
+        expect(2).toBe(2);
+      }
+    });
   });
 }

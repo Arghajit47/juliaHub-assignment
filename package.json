@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arghajit/playwright-pulse-report": "^0.3.4",
+    "@arghajit/dummy": "0.3.38",
     "playwright": "^1.51.0",
     "pulse-dashboard": "^1.2.7",
     "ua-parser-js": "^2.0.9"

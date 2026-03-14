@@ -30,9 +30,11 @@ export default defineConfig({
     ["json", { outputFile: "results.json" }],
     [
       "@arghajit/dummy",
-      // {
-      //   outputDir: path.resolve(__dirname, "reporter"),
-      // },
+      {
+        reportDescription: `This is a test report ${new Date().toISOString()}`,
+        logo: "tests/custom_logo.png",
+        //   outputDir: path.resolve(__dirname, "reporter"),
+      },
     ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -70,25 +72,25 @@ export default defineConfig({
     //   workers: 1,
     // },
 
-    {
-      name: "Mobile Chrome Project",
-      use: { ...devices["Pixel 5"] },
-      workers: 1,
-    },
-    {
-      name: "Chromium Project",
-      use: { browserName: "chromium" },
-      workers: 1,
-    },
-    /* Test against branded browsers. */
-    {
-      name: "Microsoft Edge",
-      use: { ...devices["Desktop Edge"], channel: "msedge" },
-    },
-    {
-      name: "Google Chrome",
-      use: { ...devices["Desktop Chrome"], channel: "chrome" },
-    },
+    //   {
+    //     name: "Mobile Chrome Project",
+    //     use: { ...devices["Pixel 5"] },
+    //     workers: 1,
+    //   },
+    //   {
+    //     name: "Chromium Project",
+    //     use: { browserName: "chromium" },
+    //     workers: 1,
+    //   },
+    //   /* Test against branded browsers. */
+    //   {
+    //     name: "Microsoft Edge",
+    //     use: { ...devices["Desktop Edge"], channel: "msedge" },
+    //   },
+    //   {
+    //     name: "Google Chrome",
+    //     use: { ...devices["Desktop Chrome"], channel: "chrome" },
+    //   },
   ],
 
   /* Run your local dev server before starting the tests */
