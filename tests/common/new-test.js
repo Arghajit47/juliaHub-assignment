@@ -4,7 +4,7 @@ import UAParser from "ua-parser-js";
 
 export function runNewTestTests() {
   test.describe("Sanity Tests", async () => {
-    test("Wikipedia homepage loads", async ({ page }) => {
+    test("Wikipedia homepage loads", { tag: "@hello" }, async ({ page }) => {
       pulse.severity("High");
       await page.goto("https://www.wikipedia.org");
       await expect(page).toHaveTitle("Wikipedia");
@@ -19,7 +19,7 @@ export function runNewTestTests() {
   test.describe("Home page related Tests", async () => {
     test(
       "English language switch works",
-      { tag: ["@new", "@new-tag", "@language"] },
+      { tag: ["@new", "@new-tag", "@language", "@hello"] },
       async ({ page }) => {
         pulse.severity("Low");
         await page.goto("https://www.wikipedia.org");
@@ -42,7 +42,7 @@ export function runNewTestTests() {
           },
         ],
       },
-      { tag: ["@new", "@wikipedia"] },
+      { tag: ["@new", "@wikipedia", "@hello"] },
       async ({ page }) => {
         pulse.severity("Medium");
         await page.goto("https://en.wikipedia.org/wiki/Main_Page");

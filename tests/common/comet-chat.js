@@ -3,9 +3,9 @@ import { test, expect } from "@playwright/test";
 import * as fs from "fs";
 import * as path from "path";
 export function runCometChatTests() {
-  // const appId = "2787806295fd3bf3";
+  // const appId = "";
   const apiRegion = "eu";
-  const apiKey = "35a210dcd8855a4d58323b413bb1874d525ebf92";
+  const apiKey = "";
   test.setTimeout(2000000);
   test.describe.configure({ mode: "serial" });
 

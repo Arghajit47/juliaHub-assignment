@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arghajit/dummy": "0.3.38",
+    "@arghajit/dummy": "0.3.42",
     "playwright": "^1.51.0",
     "pulse-dashboard": "^1.2.7",
     "ua-parser-js": "^2.0.9"
@@ -10,7 +10,8 @@
     "@types/node": "^22.13.9"
   },
   "scripts": {
-    "test": "npx playwright test",
+    "test1": "npx playwright test --grep @hello || true && npx playwright test --grep @hi || true",
+    "test2": "npx playwright test --grep @hi || true",
     "pulse-generate-report": "generate-report",
     "pulse-generate-static-report": "generate-pulse-report",
     "pulse-email-report": "generate-email-report",

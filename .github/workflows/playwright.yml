@@ -8,6 +8,10 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -18,10 +22,42 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npm run test
+      run: |
+        if [ "${{ matrix.shard }}" == "1" ]; then
+          npm run test1
+        else
+          npm run test2
+        fi
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-report
+        name: playwright-report-shard-${{ matrix.shard }}
         path: playwright-report/
         retention-days: 30
+
+    - name: Upload Pulse Report results
+      if: success() || failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: pulse-report-${{ matrix.shard }}
+        path: pulse-report/
+        retention-days: 1   
+
+    - name: Download all shard artifacts to a single directory
+      uses: actions/download-artifact@v4
+      with:
+        path: all-reports
+        pattern: pulse-report-*
+
+    - name: Merge all shard reports into a single report
+      run: npx merge-pulse-report -o all-reports
+
+    - name: Generate the final HTML report
+      run: npx generate-pulse-report -o all-reports
+
+    - name: Upload the final merged report
+      uses: actions/upload-artifact@v4
+      with:
+        name: final-playwright-pulse-report
+        path: all-reports/
+        retention-days: 30        

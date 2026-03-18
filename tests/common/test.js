@@ -3,7 +3,7 @@ const { test, expect } = require("@playwright/test");
 import { pulse } from "@arghajit/dummy";
 export function runTestTests() {
   test.describe("Playwright's default Tests", async () => {
-    test("has title", async ({ page }) => {
+    test("has title", { tag: "@hello" }, async ({ page }) => {
       pulse.severity("High");
       await page.goto("https://playwright.dev/");
 
@@ -11,7 +11,7 @@ export function runTestTests() {
       await expect(page).toHaveTitle(/Arghajit/);
     });
 
-    test("get started link", { tag: "@test" }, async ({ page }) => {
+    test("get started link", { tag: ["@test", "@hello"] }, async ({ page }) => {
       pulse.severity("Minor");
       await page.goto("https://playwright.dev/");
 
@@ -26,7 +26,7 @@ export function runTestTests() {
 
     test(
       "flaky: should display and close modal",
-      { tag: "@expected-fail" },
+      { tag: ["@expected-fail", "@hello"] },
       async ({ page }) => {
         pulse.severity("Critical");
         await page.goto("https://nextbnb-three.vercel.app/");

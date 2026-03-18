@@ -10,7 +10,7 @@ export function runExampleTests() {
 
   test(
     "authentication in github",
-    { tag: ["@new", "@toka"] },
+    { tag: ["@new", "@toka", "@hello"] },
     async ({ page }) => {
       await test.step("Navigating to GitHub login page", async () => {
         await page.goto(`${url}`);
@@ -31,7 +31,7 @@ export function runExampleTests() {
 
   test(
     "Github WEB API Access",
-    { tag: ["@new", "@new-tag-mech"] },
+    { tag: ["@new", "@new-tag-mech", "@hello"] },
     async ({ request }) => {
       let response;
       await test.step("Navigating to GitHub login page", async () => {
@@ -53,7 +53,7 @@ export function runExampleTests() {
     },
   );
 
-  test("internal details", { tag: ["@Os", "@details"] }, async () => {
+  test("internal details", { tag: ["@Os", "@details", "@hello"] }, async () => {
     await test.step("Worker Details", async () => {
       console.log(`Worker ID: ${test.info().workerIndex}`); // Worker number (0, 1, 2...)
       console.log(`Parallelism: ${test.info().config.workers}`);
@@ -104,6 +104,7 @@ export function runExampleTests() {
           },
         ],
       },
+      { tag: "@hello" },
       async ({ page }) => {
         pulse.severity("Critical");
         // 1. Attach a JSON file at the beginning
@@ -204,25 +205,27 @@ export function runExampleTests() {
       },
     );
 
-    test("fails 3 times with different reasons before passing", async ({
-      page,
-    }, testInfo) => {
-      pulse.severity("Critical");
-      const attempt = testInfo.retry;
-      if (attempt === 0) {
-        expect(1).toBe(2);
-      }
-      if (attempt === 1) {
-        await page.goto("https://playwright.dev/");
-        await expect(page).toHaveTitle(/Arghajit/);
-      }
-      if (attempt === 2) {
-        await page.goto("https://google.com");
-        await expect(page).toHaveTitle(/Playwright/);
-      }
-      if (attempt === 3) {
-        expect(2).toBe(2);
-      }
-    });
+    test(
+      "fails 3 times with different reasons before passing",
+      { tag: "@hello" },
+      async ({ page }, testInfo) => {
+        pulse.severity("Critical");
+        const attempt = testInfo.retry;
+        if (attempt === 0) {
+          expect(1).toBe(2);
+        }
+        if (attempt === 1) {
+          await page.goto("https://playwright.dev/");
+          await expect(page).toHaveTitle(/Arghajit/);
+        }
+        if (attempt === 2) {
+          await page.goto("https://google.com");
+          await expect(page).toHaveTitle(/Playwright/);
+        }
+        if (attempt === 3) {
+          expect(2).toBe(2);
+        }
+      },
+    );
   });
 }
